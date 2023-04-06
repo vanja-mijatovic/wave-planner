@@ -10,3 +10,6 @@
 .idea
 # Target
 target
+# .properties
+application.properties
+waveplanner.iml
