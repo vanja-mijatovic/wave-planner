@@ -13,3 +13,5 @@ target
 # .properties
 application.properties
 waveplanner.iml
+# Dependencies
+/lib/
