@@ -1,5 +1,7 @@
 package com.mijatovic.waveplanner.web.controller;
 
+import com.mijatovic.waveplanner.application.usecase.implementation.GetTasks;
+import com.mijatovic.waveplanner.application.usecase.interfaces.UseCase;
 import com.mijatovic.waveplanner.infrastructure.service.implementation.TaskServiceImplementation;
 import com.mijatovic.waveplanner.model.entity.Task;
 import lombok.AllArgsConstructor;
@@ -17,7 +19,8 @@ import java.util.List;
 @AllArgsConstructor
 public class TaskController {
 
-    private TaskServiceImplementation taskServiceImplementation;
+    private final GetTasks getTasksUseCase;
+    private final TaskServiceImplementation taskServiceImplementation;
 
     /**
      * Get a list of all tasks.
@@ -26,7 +29,7 @@ public class TaskController {
      */
     @GetMapping
     public List<Task> getTasks(){
-        return taskServiceImplementation.getTasks();
+        return getTasksUseCase.execute(new UseCase.VoidInput()).getTasks();
     }
 
     /**

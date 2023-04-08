@@ -1,7 +1,9 @@
 package com.mijatovic.waveplanner.exception;
 
 import org.springdoc.api.ErrorMessage;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -52,6 +54,20 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(NoSuchElementException.class)
     public ErrorMessage noSuchElementException(NoSuchElementException noSuchElementException){
         return new ErrorMessage(noSuchElementException.getMessage());
+    }
+
+    /**
+     * Exception handler method for handling {@link IllegalAccessException}.
+     * Returns an HTTP 403 (Forbidden) status code and a message indicating that the user does not have
+     * sufficient permissions to access the requested resource.
+     *
+     * @param ex the {@link IllegalAccessException} object to handle.
+     * @return an {@link ErrorMessage} object containing a message indicating that the user does not have sufficient permissions to access the requested resource.
+     */
+    @ExceptionHandler(IllegalAccessException.class)
+    @ResponseStatus(value = HttpStatus.FORBIDDEN)
+    public ErrorMessage handleIllegalAccessException(IllegalAccessException ex) {
+        return new ErrorMessage("You do not have sufficient permissions to access this resource");
     }
 }
 
