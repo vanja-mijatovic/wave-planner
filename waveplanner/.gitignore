@@ -8,10 +8,12 @@
 /dataSources.local.xml
 # IDEA files
 .idea
+*.iws
+*.iml
+*.ipr
 # Target
 target
 # .properties
 application.properties
-waveplanner.iml
 # Dependencies
 /lib/
