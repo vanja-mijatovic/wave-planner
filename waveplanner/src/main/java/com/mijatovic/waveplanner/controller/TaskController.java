@@ -1,7 +1,9 @@
-package com.mijatovic.waveplanner.web.controller;
+package com.mijatovic.waveplanner.controller;
 
+import com.mijatovic.waveplanner.application.usecase.implementation.GetTask;
 import com.mijatovic.waveplanner.application.usecase.implementation.GetTasks;
 import com.mijatovic.waveplanner.application.usecase.interfaces.UseCase;
+import com.mijatovic.waveplanner.dto.TaskDTO;
 import com.mijatovic.waveplanner.infrastructure.service.implementation.TaskServiceImplementation;
 import com.mijatovic.waveplanner.model.entity.Task;
 import lombok.AllArgsConstructor;
@@ -19,17 +21,29 @@ import java.util.List;
 @AllArgsConstructor
 public class TaskController {
 
+    private final GetTask getTaskUseCase;
     private final GetTasks getTasksUseCase;
     private final TaskServiceImplementation taskServiceImplementation;
 
     /**
-     * Get a list of all tasks.
+     * Gets a list of all tasks.
      *
-     * @return List of Task objects.
+     * @return A List of TaskDTO objects representing the tasks.
      */
     @GetMapping
-    public List<Task> getTasks(){
+    public List<TaskDTO> getTasks(){
         return getTasksUseCase.execute(new UseCase.VoidInput()).getTasks();
+    }
+
+    /**
+     * Retrieves a single task with the specified ID.
+     *
+     * @param id the ID of the task to retrieve.
+     * @return a TaskDTO object representing the retrieved task.
+     */
+    @GetMapping("/{id}")
+    public TaskDTO getTask(@PathVariable BigDecimal id) {
+        return getTaskUseCase.execute(GetTask.GetTaskInput.of(id)).getTaskDTO();
     }
 
     /**
