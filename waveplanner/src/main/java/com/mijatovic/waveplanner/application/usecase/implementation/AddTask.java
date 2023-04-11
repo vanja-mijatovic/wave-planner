@@ -60,10 +60,10 @@ public class AddTask implements UseCase<AddTask.AddTaskInput, AddTask.AddTaskOut
      */
     private Task mapToTaskObject(TaskDTO taskDTO) {
         return Task.builder()
-                .title(taskDTO.getTitle())
-                .type(taskDTO.getType())
-                .dueDate(taskDTO.getDueDate())
-                .description(taskDTO.getDescription())
+                .title(taskDTO.title())
+                .type(taskDTO.type())
+                .dueDate(taskDTO.dueDate())
+                .description(taskDTO.description())
                 .build();
     }
 }

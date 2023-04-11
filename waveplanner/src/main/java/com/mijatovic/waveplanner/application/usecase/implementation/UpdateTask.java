@@ -57,10 +57,10 @@ public class UpdateTask implements UseCase<UpdateTask.UpdateTaskInput, UpdateTas
     }
 
     private Task updateTaskFields(Task existingTask, TaskDTO taskDTO) {
-        existingTask.setTitle(taskDTO.getTitle());
-        existingTask.setType(taskDTO.getType());
-        existingTask.setDueDate(taskDTO.getDueDate());
-        existingTask.setDescription(taskDTO.getDescription());
+        existingTask.setTitle(taskDTO.title());
+        existingTask.setType(taskDTO.type());
+        existingTask.setDueDate(taskDTO.dueDate());
+        existingTask.setDescription(taskDTO.description());
         return existingTask;
     }
 }
