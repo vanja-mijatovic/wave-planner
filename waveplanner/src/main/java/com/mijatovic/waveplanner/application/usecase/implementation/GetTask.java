@@ -1,6 +1,5 @@
 package com.mijatovic.waveplanner.application.usecase.implementation;
 
-import com.mijatovic.waveplanner.application.usecase.exception.ResourceNotFoundException;
 import com.mijatovic.waveplanner.application.usecase.interfaces.UseCase;
 import com.mijatovic.waveplanner.dto.TaskDTO;
 import com.mijatovic.waveplanner.dto.mapper.TaskDTOMapper;
@@ -27,7 +26,7 @@ public class GetTask implements UseCase<GetTask.GetTaskInput, GetTask.GetTaskOut
      */
     @Value
     @AllArgsConstructor(staticName = "of")
-    public static class GetTaskInput implements InputValues{
+    public static class GetTaskInput implements InputValues {
         private final BigDecimal taskId;
     }
 
@@ -36,7 +35,7 @@ public class GetTask implements UseCase<GetTask.GetTaskInput, GetTask.GetTaskOut
      */
     @Value
     @AllArgsConstructor(staticName = "of")
-    public static class GetTaskOutput implements OutputValues{
+    public static class GetTaskOutput implements OutputValues {
         private final TaskDTO taskDTO;
     }
 
@@ -45,12 +44,11 @@ public class GetTask implements UseCase<GetTask.GetTaskInput, GetTask.GetTaskOut
      *
      * @param input The input for the use case, which contains the task ID.
      * @return A GetTaskOutput object containing the task retrieved by the use case.
-     * @throws ResourceNotFoundException if the task with the specified ID is not found.
      */
     @Override
     public GetTaskOutput execute(GetTaskInput input) {
         validateNotNull(input);
-        Task task = taskServiceImplementation.getTask(input.getTaskId()).orElseThrow(() -> new ResourceNotFoundException());
+        Task task = taskServiceImplementation.getTask(input.getTaskId());
         TaskDTO taskDTO = taskDTOMapper.apply(task);
         return GetTaskOutput.of(taskDTO);
     }

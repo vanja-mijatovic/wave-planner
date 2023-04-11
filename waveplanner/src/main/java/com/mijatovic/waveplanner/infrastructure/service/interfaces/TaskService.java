@@ -1,10 +1,12 @@
 package com.mijatovic.waveplanner.infrastructure.service.interfaces;
 
+import com.mijatovic.waveplanner.application.usecase.exception.FailedToAddTaskException;
+import com.mijatovic.waveplanner.application.usecase.exception.FailedToUpdateTaskException;
+import com.mijatovic.waveplanner.application.usecase.exception.ResourceNotFoundException;
 import com.mijatovic.waveplanner.model.entity.Task;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * This interface represents the Task service which provides methods for managing tasks.
@@ -19,27 +21,28 @@ public interface TaskService {
     List<Task> getTasks();
 
     /**
-     * Retrieves an Optional object containing a Task with the specified ID, if one exists.
+     * Retrieves the task with the specified ID.
      *
      * @param id The ID of the task to retrieve.
-     * @return An Optional object containing the Task with the specified ID, or an empty Optional if no task exists with the given ID.
+     * @return The Task object with the specified ID.
+     * @throws ResourceNotFoundException If no task exists with the given ID.
      */
-    Optional<Task> getTask(BigDecimal id);
+    Task getTask(BigDecimal id);
 
     /**
-     * Creates a new task.
+     * Adds a new task to the repository and returns the added task.
      *
-     * @param task the task to create
-     * @return the created task
+     * @param task The task to add to the repository.
+     * @return The added task.
+     * @throws FailedToAddTaskException if the task could not be added to the repository.
      */
-    Task createTask(Task task);
+    Task addTask(Task task);
 
     /**
-     * Updates an existing task with the specified ID.
+     * Updates an existing task in the system.
      *
-     * @param id the ID of the task to update
-     * @param task the updated task object
-     * @return the updated task
+     * @param task The updated Task object.
+     * @throws FailedToUpdateTaskException if the update operation fails for any reason.
      */
-    Task updateTask(BigDecimal id, Task task);
+    void updateTask(Task task);
 }

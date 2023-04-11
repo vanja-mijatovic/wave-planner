@@ -1,11 +1,11 @@
 package com.mijatovic.waveplanner.controller;
 
+import com.mijatovic.waveplanner.application.usecase.implementation.AddTask;
 import com.mijatovic.waveplanner.application.usecase.implementation.GetTask;
 import com.mijatovic.waveplanner.application.usecase.implementation.GetTasks;
+import com.mijatovic.waveplanner.application.usecase.implementation.UpdateTask;
 import com.mijatovic.waveplanner.application.usecase.interfaces.UseCase;
 import com.mijatovic.waveplanner.dto.TaskDTO;
-import com.mijatovic.waveplanner.infrastructure.service.implementation.TaskServiceImplementation;
-import com.mijatovic.waveplanner.model.entity.Task;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,9 +21,10 @@ import java.util.List;
 @AllArgsConstructor
 public class TaskController {
 
+    private final AddTask addTaskUseCase;
     private final GetTask getTaskUseCase;
+    private final UpdateTask updateTaskUseCase;
     private final GetTasks getTasksUseCase;
-    private final TaskServiceImplementation taskServiceImplementation;
 
     /**
      * Gets a list of all tasks.
@@ -31,7 +32,7 @@ public class TaskController {
      * @return A List of TaskDTO objects representing the tasks.
      */
     @GetMapping
-    public List<TaskDTO> getTasks(){
+    public List<TaskDTO> getTasks() {
         return getTasksUseCase.execute(new UseCase.VoidInput()).getTasks();
     }
 
@@ -47,25 +48,25 @@ public class TaskController {
     }
 
     /**
-     * Add a new task.
+     * Adds a new task with the given task details.
      *
-     * @param task Task object to be added.
-     * @return Newly added Task object.
+     * @param taskDTO The {@link TaskDTO} object representing the task to be added.
+     * @return The {@link TaskDTO} object representing the newly added task.
      */
     @PostMapping
-    public Task addTask(@RequestBody Task task){
-        return taskServiceImplementation.createTask(task);
+    public TaskDTO addTask(@RequestBody TaskDTO taskDTO) {
+        return addTaskUseCase.execute(AddTask.AddTaskInput.of(taskDTO)).getAddedTaskDTO();
     }
 
     /**
-     * Update an existing task.
+     * Updates a task with the specified ID using the provided TaskDTO.
      *
-     * @param task Task object with updated details.
-     * @param id Id of the Task to be updated.
-     * @return Updated Task object.
+     * @param taskDTO The TaskDTO containing the new values for the task.
+     * @param id      The ID of the task to update.
+     * @return The updated TaskDTO.
      */
     @PutMapping("/{id}")
-    public Task updateTask(@RequestBody Task task, @PathVariable BigDecimal id){
-        return taskServiceImplementation.updateTask(id, task);
+    public TaskDTO updateTask(@RequestBody TaskDTO taskDTO, @PathVariable BigDecimal id) {
+        return updateTaskUseCase.execute(UpdateTask.UpdateTaskInput.of(id, taskDTO)).getUpdatedTaskDTO();
     }
 }
