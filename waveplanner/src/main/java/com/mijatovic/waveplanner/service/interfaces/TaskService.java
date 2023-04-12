@@ -1,4 +1,4 @@
-package com.mijatovic.waveplanner.infrastructure.service.interfaces;
+package com.mijatovic.waveplanner.service.interfaces;
 
 import com.mijatovic.waveplanner.application.usecase.exception.FailedToAddTaskException;
 import com.mijatovic.waveplanner.application.usecase.exception.FailedToUpdateTaskException;

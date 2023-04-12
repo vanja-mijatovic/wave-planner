@@ -1,10 +1,10 @@
-package com.mijatovic.waveplanner.infrastructure.service.implementation;
+package com.mijatovic.waveplanner.service.implementation;
 
 import com.mijatovic.waveplanner.application.usecase.exception.FailedToAddTaskException;
 import com.mijatovic.waveplanner.application.usecase.exception.FailedToUpdateTaskException;
 import com.mijatovic.waveplanner.application.usecase.exception.ResourceNotFoundException;
 import com.mijatovic.waveplanner.infrastructure.repository.interfaces.TaskRepository;
-import com.mijatovic.waveplanner.infrastructure.service.interfaces.TaskService;
+import com.mijatovic.waveplanner.service.interfaces.TaskService;
 import com.mijatovic.waveplanner.model.entity.Task;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
