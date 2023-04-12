@@ -3,7 +3,7 @@ package com.mijatovic.waveplanner.application.usecase.implementation;
 import com.mijatovic.waveplanner.application.usecase.interfaces.UseCase;
 import com.mijatovic.waveplanner.dto.TaskDTO;
 import com.mijatovic.waveplanner.dto.mapper.TaskDTOMapper;
-import com.mijatovic.waveplanner.service.implementation.TaskServiceImplementation;
+import com.mijatovic.waveplanner.infrastructure.service.implementation.TaskServiceImplementation;
 import com.mijatovic.waveplanner.model.entity.Task;
 import lombok.AllArgsConstructor;
 import lombok.Value;
