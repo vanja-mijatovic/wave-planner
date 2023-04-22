@@ -17,3 +17,5 @@ target
 application.properties
 # Dependencies
 /lib/
+# Maven
+.mvn
